@@ -10,7 +10,8 @@ $fields = array(
       'largeIcon' => 'https://avatars2.githubusercontent.com/u/1174345?v=3&s=96',
       'vibrate' => 1,
       'sound' => 1,
-      'autoCancel' => true
+      'autoCancel' => true,
+      'priority' => 'high'
     )
   )
 );

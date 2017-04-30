@@ -8,6 +8,7 @@ Make sure that in Android SDK Manager it is installed:
 * Google Play Services version 27 or greater
 * Google Repository version 22 or greater
 
+Check the wiki for more.
 
 ### Build and Run Steps
 1. Clone it;
@@ -22,3 +23,4 @@ Make sure that in Android SDK Manager it is installed:
 ![alt tag](https://raw.githubusercontent.com/andrehtissot/cordova-plugin-firebase-extended-notification-app-example/master/.docs/notificationSent.jpg)
 9. And look at your device:
 ![alt tag](https://raw.githubusercontent.com/andrehtissot/cordova-plugin-firebase-extended-notification-app-example/master/.docs/notificationReceived.jpg)
+

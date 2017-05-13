@@ -1,5 +1,6 @@
 # cordova-plugin-firebase-extended-notification-app-example
-Simple cordova application using cordova-plugin-firebase-extended-notification 
+Simple cordova application using [cordova-plugin-firebase-extended-notification](https://github.com/andrehtissot/cordova-plugin-firebase-extended-notification).
+ 
 
 ### Don't forget:
 Make sure that in Android SDK Manager it is installed:

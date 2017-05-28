@@ -23,5 +23,6 @@
         <allow-intent href="itms:*" />
         <allow-intent href="itms-apps:*" />
     </platform>
-    <plugin name="cordova-plugin-fcm" spec="~1.1.5" />
+    <engine name="android" spec="~6.2.3" />
+    <plugin name="cordova-plugin-firebase-extended-notification" spec="https://github.com/andrehtissot/cordova-plugin-firebase-extended-notification" />
 </widget>

@@ -11,8 +11,11 @@ $fields = array(
       'smallIcon' => 'mipmap/icon',
       'largeIcon' => 'https://avatars2.githubusercontent.com/u/1174345?v=3&s=96',
       // 'bigPicture' => "https://cloud.githubusercontent.com/assets/7321362/24875178/1e58d2ec-1ddc-11e7-96ed-ed8bf011146c.png",
-      'vibrate' => 1,
-      'sound' => 1,
+      'vibrate' => true,
+      // 'vibrate' => [100,500,100,500],
+      'sound' => true,
+      // 'sound' => "http://tindeck.com/download/pro/yjuow/Not_That_Guy.mp3",
+      // 'sound' => "res://raw/lost_european_the_beginning_of_the_end_mp3", // Downloaded from http://www.freemusicpublicdomain.com
       'autoCancel' => true,
       'priority' => 'high'
     )

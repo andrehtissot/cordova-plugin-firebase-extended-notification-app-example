@@ -1,0 +1,27 @@
+{
+    "name": "com.andretissot.firebaseextendednotification.exampleapp",
+    "displayName": "Firebase Extended Notification App Example",
+    "version": "1.0.0",
+    "description": "A sample Apache Cordova application that responds to the deviceready event.",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": "Apache Cordova Team",
+    "license": "Apache-2.0",
+    "dependencies": {
+        "cordova-android": "^6.2.3",
+        "cordova-plugin-fcm-with-dependecy-updated": "git+https://github.com/andrehtissot/cordova-plugin-fcm.git",
+        "cordova-plugin-firebase-extended-notification": "git+https://github.com/andrehtissot/cordova-plugin-firebase-extended-notification.git",
+        "cordova-plugin-whitelist": "^1.3.2"
+    },
+    "cordova": {
+        "plugins": {
+            "cordova-plugin-whitelist": {},
+            "cordova-plugin-firebase-extended-notification": {}
+        },
+        "platforms": [
+            "android"
+        ]
+    }
+}

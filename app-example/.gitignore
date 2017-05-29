@@ -1,0 +1,4 @@
+plugins/
+platforms/
+node_modules/
+google-services.json

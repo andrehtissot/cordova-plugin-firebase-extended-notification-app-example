@@ -12,7 +12,7 @@
     "dependencies": {
         "cordova-android": "^6.2.3",
         "cordova-plugin-fcm-with-dependecy-updated": "git+https://github.com/andrehtissot/cordova-plugin-fcm.git",
-        "cordova-plugin-firebase-extended-notification": "git+https://github.com/andrehtissot/cordova-plugin-firebase-extended-notification.git",
+        "cordova-plugin-firebase-extended-notification": "file:///var/www/cordova-plugin-firebase-extended-notification",
         "cordova-plugin-whitelist": "^1.3.2"
     },
     "cordova": {

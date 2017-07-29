@@ -1,15 +1,134 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
         <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' data: content:;">
         <meta name="format-detection" content="telephone=no">
         <meta name="msapplication-tap-highlight" content="no">
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
-        <link rel="stylesheet" type="text/css" href="css/index.css">
+        <link rel="stylesheet" type="text/css" href="index.css">
     </head>
     <body>
         <h2>Firebase Extended Notification App Example</h2>
         <span id="token"></span>
+        <span id="tokenFound" style="display:none"></span>
+        <h3>Try locally to simulate notifications</h3>
+        <form id="notificationOptionsForm">
+            <div>
+                <label>
+                    Notification Style
+                    <select id="notificationStyle">
+                        <option value="simple">Simple</option>
+                        <option value="multipleLines">Multiple Lines</option>
+                        <option value="bigText">Big Text</option>
+                        <option value="bigPicture">Big Picture</option>
+                    </select>
+                </label>
+            </div>
+            <div class="style-all">
+                <button class="nullify">ignore</button>
+                <label>Id
+                    <input name="id" type="number" value="999" />
+                </label>
+            </div>
+            <div class="style-all">
+                <button class="nullify">ignore</button>
+                <label>Title
+                    <input name="title" value="App Example Title" />
+                </label>
+            </div>
+            <div class="style-simple">
+                <button class="nullify">ignore</button>
+                <label>Text
+                    <input name="text" value="Message text" />
+                </label>
+            </div>
+            <div class="style-multipleLines">
+                <button class="nullify">ignore</button>
+                <label>Text Lines
+                    <textarea name="textLines">Text line 1
+Text line 2
+Text line 3
+Text line 4
+Text line 5</textarea>
+                </label>
+            </div>
+            <div class="style-multipleLines style-bigText style-bigPicture">
+                <button class="nullify">ignore</button>
+                <label>Summary
+                    <input name="summary" value="Summary test" />
+                </label>
+            </div>
+            <div class="style-bigText">
+                <button class="nullify">ignore</button>
+                <label>Big Text
+                <textarea name="bigText">Big text line 1
+Big text line 2 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris mollis urna sed nisl venenatis, a tincidunt orci iaculis. In hac habitasse platea dictumst. Nulla quis hendrerit risus. Morbi neque lectus, laoreet quis dui quis, luctus blandit mauris. Sed ullamcorper risus et lorem facilisis, sit amet tristique nulla rutrum. Vivamus auctor pulvinar ligula, tempor lacinia arcu commodo in. Ut condimentum dolor ac felis venenatis, sit amet cursus erat accumsan. Aliquam a justo elit. Maecenas dignissim suscipit ipsum, nec laoreet velit.</textarea>
+                </label>
+            </div>
+            <div class="style-bigPicture">
+                <button class="nullify">ignore</button>
+                <label>Big Picture
+                    <input name="bigPicture" value="https://cloud.githubusercontent.com/assets/7321362/24875178/1e58d2ec-1ddc-11e7-96ed-ed8bf011146c.png" />
+                </label>
+            </div>
+            <div class="style-all">
+                <button class="nullify">ignore</button>
+                <label>Small Icon
+                    <input name="smallIcon" value="mipmap/icon" />
+                </label>
+            </div>
+            <div class="style-all">
+                <button class="nullify">ignore</button>
+                <label>Large Icon
+                    <input name="largeIcon" value="https://avatars2.githubusercontent.com/u/1174345?v=3&s=96" />
+                </label>
+            </div>
+            <div class="style-all">
+                <button class="nullify">ignore</button>
+                <label>Auto Cancel
+                    <input name="autoCancel" type="checkbox" checked />
+                </label>
+            </div>
+            <div id="notificationOptionsVibrationOptionDiv">
+                <button class="nullify">ignore</button>
+                <label>Vibration
+                    <select id="notificationOptionsVibrationOption">
+                        <option value="true">Default</option>
+                        <option value="false">Disabled</option>
+                        <option value="custom">Custom</option>
+                    </select>
+                </label>
+            </div>
+            <div id="notificationOptionsCustomVibrate">
+                <button class="nullify" style="visibility:hidden">ignore</button>
+                <label>Vibrate As
+                    <input value="[200, 300, 200, 300]" />
+                </label>
+            </div>
+            <div class="style-all">
+                <button class="nullify">ignore</button>
+                <label>Color
+                    <input name="color" type="color" value="#0000ff" />
+                </label>
+            </div>
+            <div class="style-all">
+                <button class="nullify">ignore</button>
+                <label>Sound
+                    <input name="sound" type="checkbox" checked />
+                </label>
+            </div>
+            <div class="style-all">
+                <button class="nullify">ignore</button>
+                <label>Open app
+                    <input name="openApp" type="checkbox" />
+                </label>
+            </div>
+            <button type="submit">Show Notification</button>
+            <button type="button" id="updateGeneratedCodeButton">Show/Update Code</button>
+
+        </form>
+        <pre id="generatedCode"></pre>
         <script src="cordova.js"></script>
         <script src="index.js"></script>
     </body>

@@ -25,3 +25,7 @@ Check the wiki for more.
 9. And look at your device:
 ![alt tag](https://raw.githubusercontent.com/andrehtissot/cordova-plugin-firebase-extended-notification-app-example/master/.docs/notificationReceived.jpg)
 
+### Simulating Notifications
+From the main page, it's possible to define the parameters, test locally and retrieve the code to use in the server.
+![alt tag](https://user-images.githubusercontent.com/1174345/28741234-0907709e-73e8-11e7-9f62-c2c6733f011a.jpg)
+The ignore button avoids the option to be sent, using the plugin's default.

@@ -27,5 +27,5 @@ Check the wiki for more.
 
 ### Simulating Notifications
 From the main page, it's possible to define the parameters, test locally and retrieve the code to use in the server.
-![alt tag](https://user-images.githubusercontent.com/1174345/28741234-0907709e-73e8-11e7-9f62-c2c6733f011a.jpg)
+![alt tag](https://user-images.githubusercontent.com/1174345/28749890-cd66a9cc-74ac-11e7-8719-eae09c4d34c3.jpg)
 The ignore button avoids the option to be sent, using the plugin's default.

@@ -48,12 +48,30 @@ function getOptionsFromForm(){
   }
   if('textLines' in options)
     options.textLines = options.textLines.split("\n");
-  if(!document.getElementById('notificationOptionsVibrationOption').disabled)
+  if(!document.getElementById('notificationOptionsVibrationOption').disabled) {
     if(document.getElementById('notificationOptionsVibrationOption').value === 'custom'){
       options.vibrate = document.getElementById('notificationOptionsCustomVibrate')
         .getElementsByTagName('input')[0].value;
       options.vibrate = eval(options.vibrate);
     } else options.vibrate = document.getElementById('notificationOptionsVibrationOption').value === 'true';
+  }
+  if(!document.getElementById('notificationOptionsSoundOption').disabled){
+    switch(document.getElementById('notificationOptionsSoundOption').value){
+      case 'resource':
+        options.sound = document.getElementById('notificationOptionsResourceSound')
+          .getElementsByTagName('input')[0].value;
+        break;
+      case 'online':
+        options.sound = document.getElementById('notificationOptionsOnlineSound')
+          .getElementsByTagName('input')[0].value;
+        break;
+      case 'true':
+        options.sound = true;
+        break;
+      case 'false':
+        options.sound = false;
+    }
+  }
   return options;
 }
 
@@ -94,6 +112,14 @@ document.getElementById('notificationOptionsVibrationOption').addEventListener('
   forceVibrationOption(e.target.value);
 });
 
+function forceSoundOption(soundOption){
+  document.getElementById('notificationOptionsResourceSound').style.display = (soundOption==='resource')?'':'none';
+  document.getElementById('notificationOptionsOnlineSound').style.display = (soundOption==='online')?'':'none';
+};
+document.getElementById('notificationOptionsSoundOption').addEventListener('change', function(e){
+  forceSoundOption(e.target.value);
+});
+
 function nullifyDiv(divElement){
   var input = divElement.getElementsByTagName('input')[0];
   if(!input) { input = divElement.getElementsByTagName('select')[0]; }
@@ -114,7 +140,6 @@ document.getElementById('notificationOptionsForm').addEventListener('click', fun
   nullifyDiv(event.target.parentElement);
 }, false);
 
-
 function updateGeneratedCode(){
   document.getElementById('generatedCode').innerHTML = JSON.stringify({
     "to" : document.getElementById('tokenFound').innerHTML || "bk3RNwTe3H0:CI2k_HHwgIpoDKCIZvvDMExUdFQ3P1...",
@@ -130,3 +155,4 @@ document.getElementById('updateGeneratedCodeButton').addEventListener('click', f
 
 forceNotificationStyle('simple');
 forceVibrationOption('true');
+forceSoundOption('true');

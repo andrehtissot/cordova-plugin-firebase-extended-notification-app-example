@@ -112,10 +112,27 @@ Big text line 2 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris 
                     <input name="color" type="color" value="#0000ff" />
                 </label>
             </div>
-            <div class="style-all">
+            <div id="notificationOptionsSoundOptionDiv">
                 <button class="nullify">ignore</button>
                 <label>Sound
-                    <input name="sound" type="checkbox" checked />
+                    <select id="notificationOptionsSoundOption">
+                        <option value="true">Default</option>
+                        <option value="false">Disabled</option>
+                        <option value="resource">Local Resource</option>
+                        <option value="online">From the Web</option>
+                    </select>
+                </label>
+            </div>
+            <div id="notificationOptionsResourceSound">
+                <button class="nullify" style="visibility:hidden">ignore</button>
+                <label>Local Sound
+                    <input value="res://raw/lost_european_the_beginning_of_the_end_mp3" />
+                </label>
+            </div>
+            <div id="notificationOptionsOnlineSound">
+                <button class="nullify" style="visibility:hidden">ignore</button>
+                <label>Online Sound
+                    <input value="http://tindeck.com/download/pro/yjuow/Not_That_Guy.mp3" />
                 </label>
             </div>
             <div class="style-all">

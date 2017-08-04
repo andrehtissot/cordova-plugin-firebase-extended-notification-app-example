@@ -27,9 +27,8 @@ document.addEventListener('deviceready', function(){
   });
 }, false);
 
-
-
-function getOptionsFromForm(){
+function getOptionsFromForm(formatOptions){
+  var formatOptions = formatOptions || {};
   var selectedLabels=[document.getElementById('notificationOptionsForm').getElementsByClassName('style-all'),
     document.getElementById('notificationOptionsForm').getElementsByClassName('style-'
       + document.getElementById('notificationStyle').value)];
@@ -46,13 +45,14 @@ function getOptionsFromForm(){
       }
     }
   }
-  if('textLines' in options)
+  if('textLines' in options && 'textLinesAs' in formatOptions && formatOptions.textLinesAs === 'arrayOfLines')
     options.textLines = options.textLines.split("\n");
   if(!document.getElementById('notificationOptionsVibrationOption').disabled) {
     if(document.getElementById('notificationOptionsVibrationOption').value === 'custom'){
       options.vibrate = document.getElementById('notificationOptionsCustomVibrate')
         .getElementsByTagName('input')[0].value;
-      options.vibrate = eval(options.vibrate);
+      if('vibrateAs' in formatOptions && formatOptions.vibrateAs === 'eval')
+        options.vibrate = eval(options.vibrate);
     } else options.vibrate = document.getElementById('notificationOptionsVibrationOption').value === 'true';
   }
   if(!document.getElementById('notificationOptionsSoundOption').disabled){
@@ -74,10 +74,42 @@ function getOptionsFromForm(){
   }
   return options;
 }
+function getFormatedOptionsFromForm(){
+  return getOptionsFromForm({vibrateAs: 'eval', textLinesAs: 'arrayOfLines'});
+}
+
+function setOptionsToForm(options){
+  var options = options || {}, notificationStyle = 'simple';
+  if('notificationStyle' in options){
+    switch(options.notificationStyle){
+      case 'multipleLines':
+      case 'bigText':
+      case 'bigPicture':
+        notificationStyle = options.notificationStyle;
+    }
+  }
+  forceNotificationStyle(notificationStyle);
+  var inputsNamesByMethod = {
+    'value': ['summary','title','id','text','bigPicture','largeIcon','smallIcon','color'],
+    'checked': ['autoCancel','openApp','headsUp'],
+    'innerHTML': ['textLines','bigText']
+  };
+  for(var method in inputsNamesByMethod)
+    for (var i = inputsNamesByMethod[method].length - 1; i >= 0; i--)
+      if(inputsNamesByMethod[method][i] in options)
+        document.getElementsByName(inputsNamesByMethod[method][i])[0][method] = options[inputsNamesByMethod[method][i]];
+  if('vibrate' in options){
+    if(options.vibrate === true || options.vibrate === false) {
+      forceVibrationOption(options.vibrate);
+    } else forceVibrationOption('custom', options.vibrate);
+  }
+  if('sound' in options && 'soundType' in options)
+    forceSoundOption(''+options.soundType, options.sound);
+};
 
 function showNotification(){
   if(typeof FirebaseExtendedNotification === 'object')
-    FirebaseExtendedNotification.showNotification({dataValuesToGetWhenClickedOn: 111}, getOptionsFromForm());
+    FirebaseExtendedNotification.showNotification({dataValuesToGetWhenClickedOn: 111}, getFormatedOptionsFromForm());
 }
 document.getElementById('notificationOptionsForm').addEventListener('submit', function(event){
   event.preventDefault();
@@ -105,21 +137,39 @@ document.getElementById('notificationStyle').addEventListener('change', function
   setNotificationStyle(e.target.value);
 });
 
-function forceVibrationOption(vibrationOption){
+function forceVibrationOption(vibrationOption, customValue){
+  document.getElementById('notificationOptionsVibrationOption').value = ''+vibrationOption;
   document.getElementById('notificationOptionsCustomVibrate').style.display = (vibrationOption==='custom')?'':'none';
+  if(typeof customValue !== 'undefined')
+    document.getElementById('notificationOptionsCustomVibrate').getElementsByTagName('input')[0].value = customValue;
 };
 document.getElementById('notificationOptionsVibrationOption').addEventListener('change', function(e){
   forceVibrationOption(e.target.value);
 });
 
-function forceSoundOption(soundOption){
-  document.getElementById('notificationOptionsResourceSound').style.display = (soundOption==='resource')?'':'none';
-  document.getElementById('notificationOptionsOnlineSound').style.display = (soundOption==='online')?'':'none';
+function forceSoundOption(soundOption, customValue){
+  document.getElementById('notificationOptionsResourceSound').style.display = 'none';
+  document.getElementById('notificationOptionsOnlineSound').style.display = 'none';
+  if(soundOption==='resource'){
+    document.getElementById('notificationOptionsResourceSound').style.display = '';
+    if(typeof customValue !== 'undefined')
+      document.getElementById('notificationOptionsResourceSound').getElementsByTagName('input')[0].value = customValue;
+  } else if(soundOption==='online') {
+    document.getElementById('notificationOptionsOnlineSound').style.display = '';
+    if(typeof customValue !== 'undefined')
+      document.getElementById('notificationOptionsOnlineSound').getElementsByTagName('input')[0].value = customValue;
+  }
+  document.getElementById('notificationOptionsSoundOption').value = soundOption;
 };
 document.getElementById('notificationOptionsSoundOption').addEventListener('change', function(e){
   forceSoundOption(e.target.value);
 });
 
+function nullifyButton(buttonElement){
+  if(buttonElement.innerHTML === 'Disable')
+    buttonElement.innerHTML = 'Enable';
+  else buttonElement.innerHTML = 'Disable';
+}
 function nullifyDiv(divElement){
   var input = divElement.getElementsByTagName('input')[0];
   if(!input) { input = divElement.getElementsByTagName('select')[0]; }
@@ -137,6 +187,7 @@ function nullifyDiv(divElement){
 document.getElementById('notificationOptionsForm').addEventListener('click', function(event){
   if(event.target.className !== 'nullify') { return; }
   event.preventDefault();
+  nullifyButton(event.target);
   nullifyDiv(event.target.parentElement);
 }, false);
 
@@ -145,7 +196,7 @@ function updateGeneratedCode(){
     "to" : document.getElementById('tokenFound').innerHTML || "bk3RNwTe3H0:CI2k_HHwgIpoDKCIZvvDMExUdFQ3P1...",
     "data" : {
       "dataValuesToGetWhenClickedOn" : 111,
-      "notificationOptions" : getOptionsFromForm()
+      "notificationOptions" : getFormatedOptionsFromForm()
     }
   }, null, 4);
 };
@@ -153,6 +204,22 @@ document.getElementById('updateGeneratedCodeButton').addEventListener('click', f
   updateGeneratedCode();
 });
 
-forceNotificationStyle('simple');
-forceVibrationOption('true');
-forceSoundOption('true');
+document.getElementById('saveOptionsLocally').addEventListener('click', function(e){
+  var options = getOptionsFromForm();
+  options.notificationStyle = document.getElementById('notificationStyle').value;
+  options.soundType = document.getElementById('notificationOptionsSoundOption').value;
+  window.localStorage.setItem('optionsSaved', JSON.stringify(options));
+  alert("Saved! Now the options will be recovered when restart.");
+});
+
+(function(){
+  var options = window.localStorage.getItem('optionsSaved');
+  if(options === null){
+    forceNotificationStyle('simple');
+    forceVibrationOption('true');
+    forceSoundOption('true');
+    return; // Use defaults
+  }
+  options = JSON.parse(options);
+  setOptionsToForm(options);
+})();

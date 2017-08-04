@@ -98,13 +98,21 @@ function setOptionsToForm(options){
     for (var i = inputsNamesByMethod[method].length - 1; i >= 0; i--)
       if(inputsNamesByMethod[method][i] in options)
         document.getElementsByName(inputsNamesByMethod[method][i])[0][method] = options[inputsNamesByMethod[method][i]];
+      else nullifyDivAndButtonFromInput(document.getElementsByName(inputsNamesByMethod[method][i])[0])
   if('vibrate' in options){
     if(options.vibrate === true || options.vibrate === false) {
       forceVibrationOption(options.vibrate);
     } else forceVibrationOption('custom', options.vibrate);
+  } else {
+    nullifyDivAndButtonFromDiv(document.getElementById('notificationOptionsVibrationOptionDiv'));
+    forceVibrationOption('true');
   }
-  if('sound' in options && 'soundType' in options)
+  if('sound' in options && 'soundType' in options){
     forceSoundOption(''+options.soundType, options.sound);
+  } else {
+    nullifyDivAndButtonFromDiv(document.getElementById('notificationOptionsSoundOptionDiv'));
+    forceSoundOption('true');
+  }
 };
 
 function showNotification(){
@@ -165,6 +173,17 @@ document.getElementById('notificationOptionsSoundOption').addEventListener('chan
   forceSoundOption(e.target.value);
 });
 
+function nullifyDivAndButtonFromDiv(divElement){
+  nullifyDiv(divElement);
+  nullifyButton(divElement.getElementsByClassName("nullify")[0]);
+}
+function nullifyDivAndButtonFromInput(inputElement){
+  var divElement = inputElement.parentElement;
+  while(divElement.tagName !== 'DIV'){
+    divElement = divElement.parentElement;
+  };
+  nullifyDivAndButtonFromDiv(divElement);
+}
 function nullifyButton(buttonElement){
   if(buttonElement.innerHTML === 'Disable')
     buttonElement.innerHTML = 'Enable';
@@ -183,6 +202,10 @@ function nullifyDiv(divElement){
   }
   if(divElement.id === 'notificationOptionsVibrationOptionDiv')
     nullifyDiv(document.getElementById('notificationOptionsCustomVibrate'));
+  if(divElement.id === 'notificationOptionsSoundOptionDiv'){
+    nullifyDiv(document.getElementById('notificationOptionsResourceSound'));
+    nullifyDiv(document.getElementById('notificationOptionsOnlineSound'));
+  }
 }
 document.getElementById('notificationOptionsForm').addEventListener('click', function(event){
   if(event.target.className !== 'nullify') { return; }
@@ -207,7 +230,8 @@ document.getElementById('updateGeneratedCodeButton').addEventListener('click', f
 document.getElementById('saveOptionsLocally').addEventListener('click', function(e){
   var options = getOptionsFromForm();
   options.notificationStyle = document.getElementById('notificationStyle').value;
-  options.soundType = document.getElementById('notificationOptionsSoundOption').value;
+  if(!document.getElementById('notificationOptionsSoundOption').disabled)
+    options.soundType = document.getElementById('notificationOptionsSoundOption').value;
   window.localStorage.setItem('optionsSaved', JSON.stringify(options));
   alert("Saved! Now the options will be recovered when restart.");
 });

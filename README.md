@@ -1,4 +1,6 @@
 # cordova-plugin-firebase-extended-notification-app-example
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 Simple cordova application using [cordova-plugin-firebase-extended-notification](https://github.com/andrehtissot/cordova-plugin-firebase-extended-notification).
 
 

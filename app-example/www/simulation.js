@@ -1,6 +1,6 @@
 (function(){
   var inputsNamesByExtractionAttribute = {
-    'value': ['summary','title','id','text','bigPicture','largeIcon','smallIcon','color','textLines','bigText'],
+    'value': ['summary','title','id','text','bigPicture','largeIcon','smallIcon','color','textLines','bigText','channelId','channelName','channelDescription'],
     'checked': ['autoCancel','openApp','headsUp']
   };
 
@@ -18,8 +18,8 @@
   };
   function getOptionsFromForm(formatOptions){
     var formatOptions = formatOptions || {}, options = {},
-      filterDisabled = 'filter' in formatOptions && formatOptions.filter.includes('disabled'),
-      filterHidden = 'filter' in formatOptions && formatOptions.filter.includes('hidden');
+      filterDisabled = 'filter' in formatOptions && formatOptions.filter.indexOf('disabled') !== -1,
+      filterHidden = 'filter' in formatOptions && formatOptions.filter.indexOf('hidden') !== -1;
     for(var extractionAttribute in inputsNamesByExtractionAttribute){
       for (var i = inputsNamesByExtractionAttribute[extractionAttribute].length - 1; i >= 0; i--){
         var input = document.getElementsByName(inputsNamesByExtractionAttribute[extractionAttribute][i])[0];
@@ -231,5 +231,5 @@
     });
     setDisabledOptionsNamesInForm(JSON.parse(window.localStorage.getItem('disabledOptions')));
   })();
-  updateGeneratedCode();
+  setTimeout(updateGeneratedCode, 100);
 })();

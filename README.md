@@ -4,6 +4,7 @@
 [![GitHub issues](https://img.shields.io/github/issues/andrehtissot/cordova-plugin-firebase-extended-notification-app-example.svg)](https://github.com/andrehtissot/cordova-plugin-firebase-extended-notification-app-example/issues)
 [![GitHub forks](https://img.shields.io/github/forks/andrehtissot/cordova-plugin-firebase-extended-notification-app-example.svg)](https://github.com/andrehtissot/cordova-plugin-firebase-extended-notification-app-example/network)
 [![GitHub stars](https://img.shields.io/github/stars/andrehtissot/cordova-plugin-firebase-extended-notification-app-example.svg)](https://github.com/andrehtissot/cordova-plugin-firebase-extended-notification-app-example/stargazers)
+[![Known Vulnerabilities](https://snyk.io/test/github/andrehtissot/cordova-plugin-firebase-extended-notification-app-example/badge.svg?targetFile=app-example/package.json)](https://snyk.io/test/github/andrehtissot/cordova-plugin-firebase-extended-notification-app-example?targetFile=app-example/package.json)
 
 Simple cordova application using [cordova-plugin-firebase-extended-notification](https://github.com/andrehtissot/cordova-plugin-firebase-extended-notification).
 

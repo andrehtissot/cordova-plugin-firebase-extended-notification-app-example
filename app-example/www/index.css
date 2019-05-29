@@ -1,40 +1,52 @@
 h2 {
-    font-size: 14px;
+  font-size: 14px;
 }
+
 h3 {
-    font-size: 13px;
+  font-size: 13px;
 }
 
 form > div {
-    font-size: 12px;
-    display: block;
-    margin: 10px 0 10px 10px;
-    height: 30px;
-    max-width: 600px;
-    clear: both;
+  font-size: 12px;
+  display: block;
+  margin: 10px 0 10px 10px;
+  height: 30px;
+  max-width: 600px;
+  clear: both;
 }
+
 form input {
-    margin: 0 0 0 10px;
+  margin: 0 0 0 10px;
 }
+
 form button {
-    margin: 0 0 10px 10px;
-    font-size: 10px;
+  margin: 0 0 10px 10px;
+  font-size: 10px;
 }
+
 fieldset {
-    margin-bottom: 20px;
+  margin-bottom: 20px;
 }
+
 textarea {
-    height: 100px;
+  height: 100px;
 }
-input, select, textarea {
-    width: 60%;
-    float: right;
-    vertical-align: center;
+
+input,
+select,
+textarea {
+  width: 60%;
+  float: right;
+  vertical-align: center;
 }
-#generatedCode {
-    max-width: 600px;
-    width: 100%;
+
+#generatedCode,
+#token {
+  max-width: 600px;
+  overflow-x: scroll;
+  width: 100%;
 }
+
 button.nullify {
-    float: right;
+  float: right;
 }

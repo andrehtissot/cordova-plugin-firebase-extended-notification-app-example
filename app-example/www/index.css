@@ -30,14 +30,14 @@ fieldset {
 
 textarea {
   height: 100px;
+  resize: vertical;
 }
 
 input,
 select,
 textarea {
-  width: 60%;
+  width: calc(100% - 220px);
   float: right;
-  vertical-align: center;
 }
 
 #generatedCode,
@@ -49,4 +49,9 @@ textarea {
 
 button.nullify {
   float: right;
+  width: 80px;
+}
+
+.hidden {
+  visibility: hidden;
 }

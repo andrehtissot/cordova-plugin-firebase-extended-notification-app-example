@@ -1,3 +1,5 @@
+import { SoundFields } from 'fields/SoundFields'
+import { VibrationFields } from 'fields/VibrateFields'
 import { Component, h } from 'preact'
 import { BodyContentDefaultState } from './BodyContentDefaultState'
 import { IBodyContentState } from './BodyContentState.interface'
@@ -118,66 +120,27 @@ export class BodyContent extends Component<any, any> {
         </div>
     )
 
-    private renderVibrateFields = () => [
-        <div>
-            <ToggleDisableButton
-                isDisabled={this.state.disabledFields.includes('vibrate')}
-                onClick={() => this.onToggleDisableField('vibrate')}
-            />
-            <VibrationOptionField
-                selected={this.state.vibrationOption}
-                onChange={this.onVibrationOptionChange}
-                isDisabled={this.state.disabledFields.includes('vibrate')}
-            />
-        </div>,
-        this.state.vibrationOption === 'custom' && (
-            <div>
-                <button class="nullify hidden" />
-                <InputField
-                    label={'Vibrate As'}
-                    value={this.state.customVibration}
-                    onChange={this.onCustomVibrationChange}
-                    isDisabled={this.state.disabledFields.includes('vibrate')}
-                />
-            </div>
-        ),
-    ]
+    private renderVibrateFields = () =>
+        VibrationFields({
+            customVibration: this.state.customVibration,
+            isDisabled: this.state.disabledFields.includes('vibrate'),
+            onCustomVibrationChange: this.onCustomVibrationChange,
+            onDisableClick: () => this.onToggleDisableField('vibrate'),
+            onVibrationOptionChange: this.onVibrationOptionChange,
+            vibrationOption: this.state.vibrationOption,
+        })
 
-    private renderSoundFields = () => [
-        <div>
-            <ToggleDisableButton
-                isDisabled={this.state.disabledFields.includes('sound')}
-                onClick={() => this.onToggleDisableField('sound')}
-            />
-            <SoundOptionField
-                selected={this.state.soundOption}
-                onChange={this.onSoundOptionChange}
-                isDisabled={this.state.disabledFields.includes('sound')}
-            />
-        </div>,
-        this.state.soundOption === 'resource' && (
-            <div>
-                <button class="nullify hidden" />
-                <InputField
-                    label={'Local Sound'}
-                    value={this.state.resourceSoundOption}
-                    onChange={this.onResourceSoundChange}
-                    isDisabled={this.state.disabledFields.includes('sound')}
-                />
-            </div>
-        ),
-        this.state.soundOption === 'online' && (
-            <div>
-                <button class="nullify hidden" />
-                <InputField
-                    label={'Online Sound'}
-                    value={this.state.onlineSoundOption}
-                    onChange={this.onOnlineSoundChange}
-                    isDisabled={this.state.disabledFields.includes('sound')}
-                />
-            </div>
-        ),
-    ]
+    private renderSoundFields = () =>
+        SoundFields({
+            isDisabled: this.state.disabledFields.includes('sound'),
+            onDisableClick: () => this.onToggleDisableField('sound'),
+            onOnlineSoundChange: this.onOnlineSoundChange,
+            onResourceSoundChange: this.onResourceSoundChange,
+            onSoundOptionChange: this.onSoundOptionChange,
+            onlineSoundOption: this.state.onlineSoundOption,
+            resourceSoundOption: this.state.resourceSoundOption,
+            soundOption: this.state.soundOption,
+        })
 
     private onNotificationStyleChange = (notificationStyle: NotificationStyle) => {
         this.setState({
@@ -219,7 +182,7 @@ export class BodyContent extends Component<any, any> {
         })
     }
 
-    private onCustomVibrationChange = (value: string) => {
+    private onCustomVibrationChange = (value: string): void => {
         this.setState({
             customVibration: value,
             data: {

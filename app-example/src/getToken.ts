@@ -16,7 +16,20 @@ export const getToken = () =>
                 }
                 if (!window.FCMPlugin) {
                     if (window.cordova) {
-                        reject(new Error('FCMPlugin not available'))
+                        document.addEventListener(
+                            'deviceready',
+                            () => {
+                                if (!window.FCMPlugin) {
+                                    reject(new Error('FCMPlugin not available'))
+
+                                    return
+                                }
+                                getToken()
+                                    .then(resolve)
+                                    .catch(reject)
+                            },
+                            false
+                        )
 
                         return
                     }

@@ -7,4 +7,5 @@ export interface IWindow {
         showNotification(notificationData: {}, notificationOptions: {}): void
     }
     localStorage: Storage
+    cordova?: unknown
 }

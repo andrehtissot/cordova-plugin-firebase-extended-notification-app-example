@@ -10,6 +10,7 @@ export interface IBodyContentState {
     disabledFields: string[]
     resourceSoundOption: string
     onlineSoundOption: string
+    token?: string
     data: {
         id: number
         title: string

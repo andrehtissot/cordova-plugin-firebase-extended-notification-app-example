@@ -36,9 +36,5 @@ export const BodyContentDefaultState: IBodyContentState = {
     resourceSoundOption: 'res://raw/lost_european_the_beginning_of_the_end_mp3',
     soundOption: 'true',
     vibrationOption: 'true',
+    token: undefined,
 }
-
-export const getDeepClone = (): IBodyContentState => ({
-    ...BodyContentDefaultState,
-    data: { ...BodyContentDefaultState.data },
-})

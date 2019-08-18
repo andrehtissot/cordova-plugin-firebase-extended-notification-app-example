@@ -1,21 +1,36 @@
 import { Component, h } from 'preact'
-import { IWindow } from '../window.interface'
-import { getDeepClone } from './BodyContentDefaultState'
+import { BodyContentDefaultState } from './BodyContentDefaultState'
 import { IBodyContentState } from './BodyContentState.interface'
+import { deepCloneBodyContent } from './deepCloneBodyContentState'
 import { InputField } from './fields/InputField'
 import { NotificationStyle, NotificationStyleField } from './fields/NotificationStyleField'
 import { SoundOption, SoundOptionField } from './fields/SoundOptionField'
 import { ToggleDisableButton } from './fields/ToggleDisableButton'
 import { VibrationOption, VibrationOptionField } from './fields/VibrationOptionField'
+import { getToken } from './getToken'
+import { IWindow } from './window.interface'
 
 declare var window: IWindow
 
 export class BodyContent extends Component<any, any> {
-    public state: IBodyContentState = getDeepClone()
+    public state: IBodyContentState = deepCloneBodyContent(BodyContentDefaultState)
 
     public constructor() {
         super()
         this.loadSavedOptions()
+    }
+
+    public async componentDidMount(): Promise<void> {
+        if (this.state.token) {
+            return
+        }
+        try {
+            const token = await getToken()
+            this.setState({ token })
+        } catch (e) {
+            console.error(e)
+            alert(e.message)
+        }
     }
 
     public render(): JSX.Element {
@@ -24,8 +39,7 @@ export class BodyContent extends Component<any, any> {
         return (
             <div>
                 <h2>Firebase Extended Notification App Example</h2>
-                <div id="token" />
-                <span id="tokenFound" style="display:none" />
+                {this.renderTokenField()}
                 <h3>Try locally to simulate notifications</h3>
                 <form id="notificationOptionsForm" onSubmit={this.onSubmit}>
                     {this.renderNotificationStyleField()}
@@ -257,20 +271,30 @@ export class BodyContent extends Component<any, any> {
     }
 
     private saveOptionsLocally = () => {
-        window.localStorage.setItem('state', JSON.stringify(this.state))
+        const stateToSave = deepCloneBodyContent(this.state)
+        stateToSave.token = undefined
+        window.localStorage.setItem('state', JSON.stringify(stateToSave))
         alert('Saved! Now the options will be recovered when restart.')
     }
 
-    private loadSavedOptions = () => {
+    private loadSavedOptions = async () => {
+        const token = await getToken()
         const savedState = window.localStorage.getItem('state')
         if (savedState) {
-            this.setState(JSON.parse(savedState))
+            this.setState({
+                ...JSON.parse(savedState),
+                token,
+            })
         }
     }
 
-    private resetFieldValues = () => {
+    private resetFieldValues = async () => {
         if (confirm('Are you sure you want to lose your changes?')) {
-            this.setState(getDeepClone())
+            const token = await getToken()
+            this.setState({
+                ...deepCloneBodyContent(BodyContentDefaultState),
+                token,
+            })
         }
     }
 
@@ -295,10 +319,17 @@ export class BodyContent extends Component<any, any> {
         return notificationOptions
     }
 
+    private renderTokenField = () => {
+        return (
+            <div>
+                <h3>Firebase Token:</h3>
+                <textarea id={'tokenTextArea'} readOnly children={this.state.token || 'Still loading...'} />
+            </div>
+        )
+    }
+
     private renderGeneratedCode = () => {
-        const tokenFoundElement = document.getElementById('tokenFound')
-        const token =
-            (tokenFoundElement && tokenFoundElement.innerHTML) || 'bk3RNwTe3H0:CI2k_HHwgIpoDKCIZvvDMExUdFQ3P1...'
+        const token = this.state.token || 'bk3RNwTe3H0:CI2k_HHwgIpoDKCIZvvDMExUdFQ3P1...'
 
         return (
             <pre id="generatedCode">

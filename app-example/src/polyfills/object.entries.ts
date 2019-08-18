@@ -1,3 +1,4 @@
+// Downloaded from https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/entries#Polyfill
 if (!Object.entries) {
     Object.entries = function(obj: object) {
         let ownProps = Object.keys(obj),

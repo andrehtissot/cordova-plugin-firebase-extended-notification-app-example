@@ -35,6 +35,6 @@ export const BodyContentDefaultState: IBodyContentState = {
     onlineSoundOption: 'http://tindeck.com/download/pro/yjuow/Not_That_Guy.mp3',
     resourceSoundOption: 'res://raw/lost_european_the_beginning_of_the_end_mp3',
     soundOption: 'true',
-    vibrationOption: 'true',
     token: undefined,
+    vibrationOption: 'true',
 }

@@ -29,7 +29,11 @@
         "quotemark": [true, "single", "jsx-double"],
         "no-relative-imports": false,
         "no-inner-html": false,
-        "prefer-type-cast": false
+        "prefer-type-cast": false,
+        "no-console": [true, ["warning", "error"]]
     },
-    "rulesDirectory": ["node_modules/tslint-microsoft-contrib"]
+    "rulesDirectory": ["node_modules/tslint-microsoft-contrib"],
+    "linterOptions": {
+        "exclude": ["src/polyfills/*"]
+    }
 }

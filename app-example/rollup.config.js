@@ -1,6 +1,5 @@
 const nodeResolve = require('rollup-plugin-node-resolve')
 const commonjs = require('rollup-plugin-commonjs')
-const uglify = require('rollup-plugin-uglify')
 const isProduction = process.env.NODE_ENV === 'production'
 
 export default {
@@ -17,6 +16,5 @@ export default {
         nodeResolve({
             mainFields: ['module', 'browser', 'main'],
         }),
-        ...(isProduction ? [uglify()] : []),
     ],
 }

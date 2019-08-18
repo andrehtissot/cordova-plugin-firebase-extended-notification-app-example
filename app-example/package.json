@@ -8,7 +8,6 @@
         "start": "cordova run android",
         "build": "tsc -p . && rollup -c rollup.config.js",
         "build:loop": "while sleep 1; do npm run build; done",
-        "build:prod": "npm run build",
         "prettier": "find ./src -name '*.js' -or -name '*.ts' -or -name '*.tsx' -or -name '*.scss' | xargs prettier --write",
         "tslint": "npx tslint -p . --fix",
         "tsc": "npx tsc -p . --noEmit"
@@ -42,7 +41,6 @@
         "rollup": "^1.19.4",
         "rollup-plugin-commonjs": "^10.0.2",
         "rollup-plugin-node-resolve": "^5.2.0",
-        "rollup-plugin-uglify": "^6.0.2",
         "tslint": "^5.18.0",
         "tslint-config-prettier": "^1.18.0",
         "tslint-config-standard": "^8.0.1",

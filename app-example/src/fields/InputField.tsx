@@ -11,11 +11,12 @@ interface IInputFieldProps {
 const generateOnChange = (type: string, onChange: (value: unknown) => void) => {
     if (type === 'checkbox') {
         return (event: Event) => onChange((event.target as HTMLInputElement).checked)
-    } else if (type === 'number') {
-        return (event: Event) => onChange((event.target as HTMLInputElement).valueAsNumber)
-    } else {
-        return (event: Event) => onChange((event.target as HTMLInputElement).value)
     }
+    if (type === 'number') {
+        return (event: Event) => onChange((event.target as HTMLInputElement).valueAsNumber)
+    }
+
+    return (event: Event) => onChange((event.target as HTMLInputElement).value)
 }
 
 export const InputField = (props: IInputFieldProps): JSX.Element => {

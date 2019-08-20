@@ -42,8 +42,6 @@ export const getToken = () =>
                         if (tokenFound !== null && tokenFound !== '') {
                             clearInterval(interval)
                             resolve(tokenFound)
-                        } else {
-                            reject(new Error('Found token is invalid'))
                         }
                     },
                     (e: Error) => {

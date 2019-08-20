@@ -1,8 +1,5 @@
 'use strict';
 
-var SoundFields = require('fields/SoundFields');
-var VibrateFields = require('fields/VibrateFields');
-
 Array.prototype.includes||Object.defineProperty(Array.prototype,"includes",{value:function(r,e){if(null==this)throw new TypeError('"this" is null or not defined');var t=Object(this),n=t.length>>>0;if(0===n)return !1;for(var i=0|e,o=Math.max(i>=0?i:n-Math.abs(i),0);o<n;){if(function(r,e){return r===e||"number"==typeof r&&"number"==typeof e&&isNaN(r)&&isNaN(e)}(t[o],r))return !0;o++;}return !1}});
 
 var VNode = function VNode() {};
@@ -753,7 +750,7 @@ var BodyContentDefaultState = {
     },
     disabledFields: [],
     notificationStyle: 'simple',
-    onlineSoundOption: 'http://tindeck.com/download/pro/yjuow/Not_That_Guy.mp3',
+    onlineSoundOption: 'https://freemusicarchive.org/file/music/Music_for_Video/Podington_Bear/Solo_Instruments/Podington_Bear_-_Starling.mp3',
     resourceSoundOption: 'res://raw/lost_european_the_beginning_of_the_end_mp3',
     soundOption: 'true',
     token: undefined,
@@ -822,12 +819,102 @@ var NotificationStyleField = function (props) {
             h("option", { value: "bigPicture", selected: props.selected === 'bigPicture' }, "Big Picture"))));
 };
 
+var __assign$2 = (undefined && undefined.__assign) || function () {
+    __assign$2 = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign$2.apply(this, arguments);
+};
+var SoundOptionField = function (props) {
+    var _a = __assign$2({ isDisabled: false }, props), isDisabled = _a.isDisabled, selected = _a.selected;
+    var onChange = function (event) {
+        if (props.onChange) {
+            var select = event.target;
+            props.onChange(select.value);
+        }
+    };
+    return (h("label", { style: isDisabled ? { textDecoration: 'line-through' } : {} },
+        "Sound",
+        h("select", { onChange: onChange, disabled: isDisabled },
+            h("option", { value: "true", selected: props.selected === 'true' }, "Default"),
+            h("option", { value: "false", selected: props.selected === 'false' }, "Disabled"),
+            h("option", { value: "resource", selected: props.selected === 'resource' }, "Local Resource"),
+            h("option", { value: "online", selected: props.selected === 'online' }, "From the Web"))));
+};
+
 var ToggleDisableButton = function (props) {
     var onClick = function (event) {
         event.preventDefault();
         props.onClick();
     };
     return (h("button", { class: "nullify", onClick: onClick }, props.isDisabled ? 'Give an\nArgument' : 'Use default'));
+};
+
+var SoundFields = function (props) {
+    var isDisabled = props.isDisabled, onDisableClick = props.onDisableClick, soundOption = props.soundOption, onResourceSoundChange = props.onResourceSoundChange, onOnlineSoundChange = props.onOnlineSoundChange, onSoundOptionChange = props.onSoundOptionChange, resourceSoundOption = props.resourceSoundOption, onlineSoundOption = props.onlineSoundOption;
+    var fields = [
+        h("div", null,
+            h(ToggleDisableButton, { isDisabled: isDisabled, onClick: onDisableClick }),
+            h(SoundOptionField, { selected: soundOption, onChange: onSoundOptionChange, isDisabled: isDisabled })),
+    ];
+    if (soundOption === 'resource') {
+        fields.push(h("div", null,
+            h("button", { class: "nullify hidden" }),
+            h(InputField, { label: 'Local Sound', value: resourceSoundOption, onChange: onResourceSoundChange, isDisabled: isDisabled })));
+    }
+    if (soundOption === 'online') {
+        fields.push(h("div", null,
+            h("button", { class: "nullify hidden" }),
+            h(InputField, { label: 'Online Sound', value: onlineSoundOption, onChange: onOnlineSoundChange, isDisabled: isDisabled })));
+    }
+    return fields;
+};
+
+var __assign$3 = (undefined && undefined.__assign) || function () {
+    __assign$3 = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign$3.apply(this, arguments);
+};
+var VibrationOptionField = function (props) {
+    var _a = __assign$3({ isDisabled: false }, props), isDisabled = _a.isDisabled, selected = _a.selected;
+    var onChange = function (event) {
+        if (props.onChange) {
+            var select = event.target;
+            props.onChange(select.value);
+        }
+    };
+    return (h("label", { style: isDisabled ? { textDecoration: 'line-through' } : {} },
+        "Vibration",
+        h("select", { onChange: onChange, disabled: isDisabled },
+            h("option", { value: "true", selected: selected === 'true' }, "Default"),
+            h("option", { value: "false", selected: selected === 'false' }, "Disabled"),
+            h("option", { value: "custom", selected: selected === 'custom' }, "Custom"))));
+};
+
+var VibrationFields = function (props) {
+    var isDisabled = props.isDisabled, onDisableClick = props.onDisableClick, vibrationOption = props.vibrationOption, onCustomVibrationChange = props.onCustomVibrationChange, customVibration = props.customVibration, onVibrationOptionChange = props.onVibrationOptionChange;
+    var fields = [
+        h("div", null,
+            h(ToggleDisableButton, { isDisabled: isDisabled, onClick: onDisableClick }),
+            h(VibrationOptionField, { selected: vibrationOption, onChange: onVibrationOptionChange, isDisabled: isDisabled })),
+    ];
+    if (vibrationOption === 'custom') {
+        fields.push(h("div", null,
+            h("button", { class: "nullify hidden" }),
+            h(InputField, { label: 'Vibrate As', value: customVibration, onChange: onCustomVibrationChange, isDisabled: isDisabled })));
+    }
+    return fields;
 };
 
 var getToken = function () {
@@ -879,8 +966,8 @@ var __extends = (undefined && undefined.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-var __assign$2 = (undefined && undefined.__assign) || function () {
-    __assign$2 = Object.assign || function(t) {
+var __assign$4 = (undefined && undefined.__assign) || function () {
+    __assign$4 = Object.assign || function(t) {
         for (var s, i = 1, n = arguments.length; i < n; i++) {
             s = arguments[i];
             for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
@@ -888,7 +975,7 @@ var __assign$2 = (undefined && undefined.__assign) || function () {
         }
         return t;
     };
-    return __assign$2.apply(this, arguments);
+    return __assign$4.apply(this, arguments);
 };
 var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -949,7 +1036,7 @@ var BodyContent = (function (_super) {
                 h(InputField, { label: label, type: type, value: _this.state.data[fieldName] ? '' + _this.state.data[fieldName] : '', isDisabled: _this.state.disabledFields.includes(fieldName), onChange: function (value) { return _this.onChangeDataValue(fieldName, value); } })));
         };
         _this.renderVibrateFields = function () {
-            return VibrateFields.VibrationFields({
+            return VibrationFields({
                 customVibration: _this.state.customVibration,
                 isDisabled: _this.state.disabledFields.includes('vibrate'),
                 onCustomVibrationChange: _this.onCustomVibrationChange,
@@ -959,7 +1046,7 @@ var BodyContent = (function (_super) {
             });
         };
         _this.renderSoundFields = function () {
-            return SoundFields.SoundFields({
+            return SoundFields({
                 isDisabled: _this.state.disabledFields.includes('sound'),
                 onDisableClick: function () { return _this.onToggleDisableField('sound'); },
                 onOnlineSoundChange: _this.onOnlineSoundChange,
@@ -988,7 +1075,7 @@ var BodyContent = (function (_super) {
         };
         _this.onChangeDataValue = function (fieldName, value) {
             var _a;
-            _this.setState({ data: __assign$2({}, _this.state.data, (_a = {}, _a[fieldName] = value, _a)) });
+            _this.setState({ data: __assign$4({}, _this.state.data, (_a = {}, _a[fieldName] = value, _a)) });
         };
         _this.onVibrationOptionChange = function (vibrationOption) {
             var vibrate;
@@ -1002,14 +1089,14 @@ var BodyContent = (function (_super) {
                 vibrate = JSON.parse(_this.state.customVibration);
             }
             _this.setState({
-                data: __assign$2({}, _this.state.data, { vibrate: vibrate }),
+                data: __assign$4({}, _this.state.data, { vibrate: vibrate }),
                 vibrationOption: vibrationOption,
             });
         };
         _this.onCustomVibrationChange = function (value) {
             _this.setState({
                 customVibration: value,
-                data: __assign$2({}, _this.state.data, { vibrate: JSON.parse(value) }),
+                data: __assign$4({}, _this.state.data, { vibrate: JSON.parse(value) }),
             });
         };
         _this.onSoundOptionChange = function (soundOption) {
@@ -1027,19 +1114,19 @@ var BodyContent = (function (_super) {
                 sound = _this.state.onlineSoundOption;
             }
             _this.setState({
-                data: __assign$2({}, _this.state.data, { sound: sound }),
+                data: __assign$4({}, _this.state.data, { sound: sound }),
                 soundOption: soundOption,
             });
         };
         _this.onResourceSoundChange = function (value) {
             _this.setState({
-                data: __assign$2({}, _this.state.data, { sound: value }),
+                data: __assign$4({}, _this.state.data, { sound: value }),
                 resourceSoundOption: value,
             });
         };
         _this.onOnlineSoundChange = function (value) {
             _this.setState({
-                data: __assign$2({}, _this.state.data, { sound: value }),
+                data: __assign$4({}, _this.state.data, { sound: value }),
                 onlineSoundOption: value,
             });
         };
@@ -1058,7 +1145,7 @@ var BodyContent = (function (_super) {
                         token = _a.sent();
                         savedState = window.localStorage.getItem('state');
                         if (savedState) {
-                            this.setState(__assign$2({}, JSON.parse(savedState), { token: token }));
+                            this.setState(__assign$4({}, JSON.parse(savedState), { token: token }));
                         }
                         return [2];
                 }
@@ -1073,7 +1160,7 @@ var BodyContent = (function (_super) {
                         return [4, getToken()];
                     case 1:
                         token = _a.sent();
-                        this.setState(__assign$2({}, deepCloneBodyContent(BodyContentDefaultState), { token: token }));
+                        this.setState(__assign$4({}, deepCloneBodyContent(BodyContentDefaultState), { token: token }));
                         _a.label = 2;
                     case 2: return [2];
                 }

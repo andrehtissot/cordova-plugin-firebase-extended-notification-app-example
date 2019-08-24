@@ -21,16 +21,16 @@ export const SoundOptionField = (props: ISoundOptionFieldProps): JSX.Element => 
         <label style={isDisabled ? { textDecoration: 'line-through' } : {}}>
             Sound
             <select onChange={onChange} disabled={isDisabled}>
-                <option value="true" selected={props.selected === 'true'}>
+                <option value="true" selected={selected === 'true'}>
                     Default
                 </option>
-                <option value="false" selected={props.selected === 'false'}>
+                <option value="false" selected={selected === 'false'}>
                     Disabled
                 </option>
-                <option value="resource" selected={props.selected === 'resource'}>
+                <option value="resource" selected={selected === 'resource'}>
                     Local Resource
                 </option>
-                <option value="online" selected={props.selected === 'online'}>
+                <option value="online" selected={selected === 'online'}>
                     From the Web
                 </option>
             </select>

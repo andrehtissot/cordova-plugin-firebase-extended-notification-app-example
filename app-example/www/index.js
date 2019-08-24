@@ -841,10 +841,10 @@ var SoundOptionField = function (props) {
     return (h("label", { style: isDisabled ? { textDecoration: 'line-through' } : {} },
         "Sound",
         h("select", { onChange: onChange, disabled: isDisabled },
-            h("option", { value: "true", selected: props.selected === 'true' }, "Default"),
-            h("option", { value: "false", selected: props.selected === 'false' }, "Disabled"),
-            h("option", { value: "resource", selected: props.selected === 'resource' }, "Local Resource"),
-            h("option", { value: "online", selected: props.selected === 'online' }, "From the Web"))));
+            h("option", { value: "true", selected: selected === 'true' }, "Default"),
+            h("option", { value: "false", selected: selected === 'false' }, "Disabled"),
+            h("option", { value: "resource", selected: selected === 'resource' }, "Local Resource"),
+            h("option", { value: "online", selected: selected === 'online' }, "From the Web"))));
 };
 
 var ToggleDisableButton = function (props) {

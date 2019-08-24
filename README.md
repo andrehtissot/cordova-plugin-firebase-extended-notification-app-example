@@ -37,4 +37,4 @@ FB_SERVER_KEY="your firebase server key" TARGET="the device's firebase token" ph
 ### Simulating Notifications
 From the main page, it's possible to define the parameters, test locally and retrieve the code to use in the server.
 ![alt tag](https://user-images.githubusercontent.com/1174345/28749890-cd66a9cc-74ac-11e7-8719-eae09c4d34c3.jpg)
-The ignore button avoids the option to be sent, using the plugin's default.
+

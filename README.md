@@ -22,15 +22,16 @@ Check the wiki for more.
 ### Build and Run Steps
 1. Clone it;
 2. Execute the `install.sh` script;
-3. Copy the file `server-side/notify.php` to your server;
-4. The value of `AUTHORIZATION_KEY` can be found accessing https://console.firebase.google.com, at the configurations section ([step by step tutorial](https://github.com/andrehtissot/cordova-plugin-firebase-extended-notification-app-example/wiki/How-to-find-your-firebase-server-key));
-5. Download your `google-services.json`, from https://console.firebase.google.com, to the `app-example` directory;
-6. Within `app-example`, execute build/test commands like `cordova run android`;
-7. Run it to get the firebase token:
+3. Download your `google-services.json`, from https://console.firebase.google.com, to the `app-example` directory;
+4. Within `app-example`, execute `cordova run android`;
+5. Run it to get the TARGET firebase token:
 ![alt tag](https://raw.githubusercontent.com/andrehtissot/cordova-plugin-firebase-extended-notification-app-example/master/.docs/gotToken.jpg)
-8. Access your `notify.php` with `?to=TOKEN`:
-![alt tag](https://raw.githubusercontent.com/andrehtissot/cordova-plugin-firebase-extended-notification-app-example/master/.docs/notificationSent.jpg)
-9. And look at your device:
+6. Grab the value of `FB_SERVER_KEY`, that can be found accessing https://console.firebase.google.com, at the configurations section ([step by step tutorial](https://github.com/andrehtissot/cordova-plugin-firebase-extended-notification-app-example/wiki/How-to-find-your-firebase-server-key));
+7. Run:
+```bash
+FB_SERVER_KEY="your firebase server key" TARGET="the device's firebase token" php server-side/notify.php
+```
+8. And look at your device:
 ![alt tag](https://raw.githubusercontent.com/andrehtissot/cordova-plugin-firebase-extended-notification-app-example/master/.docs/notificationReceived.jpg)
 
 ### Simulating Notifications

@@ -2,7 +2,7 @@
     "name": "com.andretissot.firebaseextendednotification.exampleapp",
     "displayName": "Firebase Extended Notification App Example",
     "version": "3.0.1",
-    "description": "A sample Apache Cordova application that responds to the deviceready event.",
+    "description": "A sample Apache Cordova application that makes use of cordova-plugin-firebase-extended-notification",
     "main": "index.js",
     "scripts": {
         "start": "cordova run android",

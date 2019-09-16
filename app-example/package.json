@@ -1,7 +1,7 @@
 {
     "name": "com.andretissot.firebaseextendednotification.exampleapp",
     "displayName": "Firebase Extended Notification App Example",
-    "version": "3.0.1",
+    "version": "3.2.0",
     "description": "A sample Apache Cordova application that makes use of cordova-plugin-firebase-extended-notification",
     "main": "index.js",
     "scripts": {

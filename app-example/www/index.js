@@ -768,7 +768,7 @@ var __assign = (undefined && undefined.__assign) || function () {
     };
     return __assign.apply(this, arguments);
 };
-var deepCloneBodyContent = function (bodyContentState) { return (__assign({}, bodyContentState, { data: __assign({}, bodyContentState.data) })); };
+var deepCloneBodyContent = function (bodyContentState) { return (__assign(__assign({}, bodyContentState), { data: __assign({}, bodyContentState.data) })); };
 
 var __assign$1 = (undefined && undefined.__assign) || function () {
     __assign$1 = Object.assign || function(t) {
@@ -978,10 +978,11 @@ var __assign$4 = (undefined && undefined.__assign) || function () {
     return __assign$4.apply(this, arguments);
 };
 var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
         function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
@@ -1011,6 +1012,13 @@ var __generator = (undefined && undefined.__generator) || function (thisArg, bod
         } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
+};
+var __spreadArrays = (undefined && undefined.__spreadArrays) || function () {
+    for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
+    for (var r = Array(s), k = 0, i = 0; i < il; i++)
+        for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
+            r[k] = a[j];
+    return r;
 };
 var BodyContent = (function (_super) {
     __extends(BodyContent, _super);
@@ -1075,7 +1083,7 @@ var BodyContent = (function (_super) {
         };
         _this.onChangeDataValue = function (fieldName, value) {
             var _a;
-            _this.setState({ data: __assign$4({}, _this.state.data, (_a = {}, _a[fieldName] = value, _a)) });
+            _this.setState({ data: __assign$4(__assign$4({}, _this.state.data), (_a = {}, _a[fieldName] = value, _a)) });
         };
         _this.onVibrationOptionChange = function (vibrationOption) {
             var vibrate;
@@ -1089,14 +1097,14 @@ var BodyContent = (function (_super) {
                 vibrate = JSON.parse(_this.state.customVibration);
             }
             _this.setState({
-                data: __assign$4({}, _this.state.data, { vibrate: vibrate }),
+                data: __assign$4(__assign$4({}, _this.state.data), { vibrate: vibrate }),
                 vibrationOption: vibrationOption,
             });
         };
         _this.onCustomVibrationChange = function (value) {
             _this.setState({
                 customVibration: value,
-                data: __assign$4({}, _this.state.data, { vibrate: JSON.parse(value) }),
+                data: __assign$4(__assign$4({}, _this.state.data), { vibrate: JSON.parse(value) }),
             });
         };
         _this.onSoundOptionChange = function (soundOption) {
@@ -1114,19 +1122,19 @@ var BodyContent = (function (_super) {
                 sound = _this.state.onlineSoundOption;
             }
             _this.setState({
-                data: __assign$4({}, _this.state.data, { sound: sound }),
+                data: __assign$4(__assign$4({}, _this.state.data), { sound: sound }),
                 soundOption: soundOption,
             });
         };
         _this.onResourceSoundChange = function (value) {
             _this.setState({
-                data: __assign$4({}, _this.state.data, { sound: value }),
+                data: __assign$4(__assign$4({}, _this.state.data), { sound: value }),
                 resourceSoundOption: value,
             });
         };
         _this.onOnlineSoundChange = function (value) {
             _this.setState({
-                data: __assign$4({}, _this.state.data, { sound: value }),
+                data: __assign$4(__assign$4({}, _this.state.data), { sound: value }),
                 onlineSoundOption: value,
             });
         };
@@ -1145,7 +1153,7 @@ var BodyContent = (function (_super) {
                         token = _a.sent();
                         savedState = window.localStorage.getItem('state');
                         if (savedState) {
-                            this.setState(__assign$4({}, JSON.parse(savedState), { token: token }));
+                            this.setState(__assign$4(__assign$4({}, JSON.parse(savedState)), { token: token }));
                         }
                         return [2];
                 }
@@ -1160,7 +1168,7 @@ var BodyContent = (function (_super) {
                         return [4, getToken()];
                     case 1:
                         token = _a.sent();
-                        this.setState(__assign$4({}, deepCloneBodyContent(BodyContentDefaultState), { token: token }));
+                        this.setState(__assign$4(__assign$4({}, deepCloneBodyContent(BodyContentDefaultState)), { token: token }));
                         _a.label = 2;
                     case 2: return [2];
                 }
@@ -1168,7 +1176,7 @@ var BodyContent = (function (_super) {
         }); };
         _this.getPresentableData = function () {
             var notificationOptions = {};
-            var skipKeys = _this.state.disabledFields.slice();
+            var skipKeys = __spreadArrays(_this.state.disabledFields);
             if (_this.state.notificationStyle === 'simple') {
                 skipKeys.push('bigPicture', 'bigText', 'summary', 'textLines');
             }

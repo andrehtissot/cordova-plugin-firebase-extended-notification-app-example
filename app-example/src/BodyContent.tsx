@@ -1,4 +1,4 @@
-import { Component, h } from 'preact'
+import { Component, h, JSX } from 'preact'
 import { BodyContentDefaultState } from './BodyContentDefaultState'
 import { IBodyContentState } from './BodyContentState.interface'
 import { deepCloneBodyContent } from './deepCloneBodyContentState'

@@ -1,4 +1,4 @@
-import { h } from 'preact'
+import { h, JSX } from 'preact'
 
 export type VibrationOption = 'true' | 'false' | 'custom'
 

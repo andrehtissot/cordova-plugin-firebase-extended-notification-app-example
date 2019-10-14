@@ -1,4 +1,4 @@
-import { h } from 'preact'
+import { h, JSX } from 'preact'
 import { InputField } from './InputField'
 import { ToggleDisableButton } from './ToggleDisableButton'
 import { VibrationOption, VibrationOptionField } from './VibrationOptionField'

@@ -1,4 +1,4 @@
-import { h } from 'preact'
+import { h, JSX } from 'preact'
 
 interface IToggleDisableButtonProps {
     isDisabled: boolean

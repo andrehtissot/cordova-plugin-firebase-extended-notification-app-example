@@ -1,4 +1,4 @@
-import { h } from 'preact'
+import { h, JSX } from 'preact'
 import { InputField } from './InputField'
 import { SoundOption, SoundOptionField } from './SoundOptionField'
 import { ToggleDisableButton } from './ToggleDisableButton'
